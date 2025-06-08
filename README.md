@@ -1,101 +1,78 @@
-# Telegram Music Discovery Bot (موزیک‌یاب تلگرام)
+# Music Bot
 
-[![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![Telegram Bot API](https://img.shields.io/badge/Telegram%20Bot%20API-PTB%20v21.6-blue.svg)](https://python-telegram-bot.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) یک ربات تلگرامی هوشمند برای کشف و دریافت جدیدترین آهنگ‌های خوانندگان مورد علاقه شما. این ربات به کاربران امکان می‌دهد لیستی از خوانندگان دلخواه خود را مدیریت کرده و به محض انتشار آثار جدید، لینک دانلود آن‌ها را دریافت کنند. رابط کاربری ربات به زبان فارسی طراحی شده است.
+This bot helps you discover new music from your favorite singers and manage your listening history.
 
-**توجه:** این ربات برای واکشی اطلاعات موسیقی از وب‌سایت `ahangimo.com` استفاده می‌کند.
+## Commands
 
----
+- `/start`: Starts the bot and displays a welcome message.
+- `/cancel`: Cancels the current operation.
+- `/delete_history`: Deletes your listening history.
 
-## 🌟 ویژگی‌های کلیدی
+## Features
 
-* **مدیریت لیست خوانندگان:**
-    * افزودن خواننده به لیست شخصی همراه با تعیین تعداد آهنگ‌های جدید درخواستی.
-    * حذف خواننده از لیست.
-    * نمایش لیست خوانندگان ذخیره شده.
-    * حذف کامل لیست خوانندگان با تایید کاربر.
-* **پیشنهاد هوشمند نام خواننده:**
-    * در صورت وارد کردن نام خواننده با غلط املایی یا به صورت ناقص، ربات نام‌های مشابه موجود در دیتابیس را پیشنهاد می‌دهد (با استفاده از تطابق فازی).
-* **دریافت خودکار آهنگ‌های جدید:**
-    * ربات به صورت دوره‌ای (روزانه) آهنگ‌های جدید منتشر شده از خوانندگان لیست شما را بررسی و ارسال می‌کند.
-* **دریافت دستی آهنگ‌ها:**
-    * امکان ارسال درخواست برای دریافت آهنگ‌های جدید در هر زمان دلخواه.
-* **پاکسازی تاریخچه:**
-    * قابلیت پاک کردن سابقه آهنگ‌های ارسال شده به کاربر (بدون حذف پیام‌ها از چت تلگرام)، تا در صورت نیاز آهنگ‌ها مجددا دریافت شوند.
-* **رابط کاربری فارسی:**
-    * تمامی پیام‌ها و دکمه‌ها به زبان فارسی هستند.
-* **استقرار با Webhook:**
-    * طراحی شده برای اجرا در حالت Webhook با استفاده از Starlette و Uvicorn، مناسب برای محیط پروداکشن.
-* **لاگ‌گیری پیشرفته:**
-    * لاگ‌گیری جامع فعالیت‌های ربات و خطاهای احتمالی در کنسول.
-* **واکشی قدرتمند اطلاعات:**
-    * استفاده از Playwright برای واکشی اطلاعات از وب‌سایت‌های داینامیک و استخراج لینک‌های دانلود.
+### Manage Preferred Singers
 
----
+- **Add Singer**: Add a singer to your preferred list.
+- **Delete Singer**: Remove a singer from your preferred list.
+- **View Singers**: See your list of preferred singers.
+- **Clear Singers**: Remove all singers from your preferred list.
 
-## 🛠️ پشته فناوری
+The bot uses the `thefuzz` library for flexible singer name matching, so you don't have to worry about exact spelling.
 
-* **زبان برنامه‌نویسی:** Python 3.9+
-* **کتابخانه اصلی ربات:** `python-telegram-bot` (نسخه 21.6)
-* **چارچوب وب (برای Webhook):** `Starlette`, `Uvicorn`
-* **واکشی وب (Scraping):** `Playwright` (با مرورگر Chromium)
-* **تطابق فازی (Fuzzy Matching):** `thefuzz[speedup]`
-* **درخواست‌های HTTP غیرهمزمان:** `aiohttp` (استفاده شده توسط PTB)
-* **پایگاه داده:** SQLite برای ذخیره‌سازی اطلاعات کاربران و آهنگ‌ها.
+### Fetch New Music
 
----
+- Get notified about new releases from your preferred singers.
 
-## 🚀 شروع به کار
+### Manage Listening History
 
-### پیش‌نیازها
+- Keep track of the music you've listened to.
+- Delete your listening history if needed.
 
-1.  **Python:** نسخه 3.9 یا بالاتر.
-2.  **توکن ربات تلگرام:** از طریق [BotFather](https://t.me/BotFather) دریافت کنید.
-3.  **دامنه Webhook (اختیاری ولی توصیه شده برای پروداکشن):** یک دامنه عمومی که تلگرام بتواند به آن درخواست ارسال کند (مثلاً `yourdomain.com`).
-4.  **مرورگر Playwright:**
+## Running the Bot
+
+### 1. Local Setup (Python Virtual Environment)
+
+1.  **Create and activate a virtual environment:**
     ```bash
-    playwright install chromium
+    python3 -m venv venv && source venv/bin/activate
     ```
+    *(On Windows, use `venv\Scripts\activate`)*
 
-### نصب و راه‌اندازی
-
-1.  **کلون کردن مخزن:**
-    ```bash
-    git clone <your-repository-link>
-    cd music-bot
-    ```
-
-2.  **ایجاد و فعال‌سازی محیط مجازی (توصیه می‌شود):**
-    ```bash
-    python -m venv venv
-    # On Windows
-    # venv\Scripts\activate
-    # On macOS/Linux
-    # source venv/bin/activate
-    ```
-
-3.  **نصب وابستگی‌ها:**
+2.  **Install dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-4.  **تنظیم متغیرهای محیطی:**
-    یک فایل `.env` در ریشه پروژه ایجاد کرده و متغیرهای زیر را در آن تنظیم کنید (یا مستقیماً در محیط سیستم خود تنظیم نمایید):
-
-    ```env
-    TELEGRAM_BOT_TOKEN="YOUR_BOT_TOKEN_HERE"  # اجباری
-    WEBHOOK_DOMAIN="yourdomain.com"          # اجباری برای حالت Webhook
-    PORT="8080"                              # اختیاری، پیش‌فرض 8080
-    APP_DATA_DIR="./app_data"                # اختیاری، مسیر ذخیره دیتابیس‌ها، پیش‌فرض پوشه فعلی
-    APP_LOG_LEVEL="INFO"                     # اختیاری، سطح لاگ برنامه (DEBUG, INFO, WARNING, ERROR)
-    PTB_LOG_LEVEL="WARNING"                  # اختیاری، سطح لاگ کتابخانه PTB
+3.  **Install Playwright browsers:**
+    ```bash
+    python -m playwright install --with-deps chromium
     ```
-    ربات به طور خودکار این متغیرها را از محیط می‌خواند.
 
-### اجرای ربات
+4.  **Set Environment Variables:**
+    Set the `PORT` for the application:
+    ```bash
+    export PORT=8080
+    ```
+    Set your Telegram Bot Token. **Note:** The actual environment variable name for the token (e.g., `TELEGRAM_BOT_TOKEN`, `BOT_TOKEN`) might be different. Please check your bot's configuration file (e.g., `config.py`, `main.py`, or `.env` file instructions) for the correct variable name.
+    ```bash
+    export TELEGRAM_BOT_TOKEN='YOUR_TOKEN_HERE'
+    ```
 
-ربات با استفاده از Uvicorn و Starlette اجرا می‌شود. دستور زیر را در ترمینال اجرا کنید:
+5.  **Run the bot:**
+    The bot is typically run using Uvicorn.
+    ```bash
+    uvicorn main:create_starlette_app --host 0.0.0.0 --port $PORT --factory --workers 1
+    ```
 
-```bash
-uvicorn main:create_starlette_app --host 0.0.0.0 --port <PORT> --factory
+### 2. Docker Setup
+
+1.  **Build the Docker image:**
+    ```bash
+    docker build -t music_bot .
+    ```
+
+2.  **Run the Docker container:**
+    Remember to replace `8080` if you are using a different port and `'YOUR_TOKEN_HERE'` with your actual Telegram Bot Token. **Note:** The actual environment variable name for the token (e.g., `TELEGRAM_BOT_TOKEN`, `BOT_TOKEN`) might be different. Please check your bot's configuration file (e.g., `config.py`, `main.py`, or Dockerfile instructions) for the correct variable name.
+    ```bash
+    docker run -e PORT=8080 -e TELEGRAM_BOT_TOKEN='YOUR_TOKEN_HERE' -p 8080:8080 music_bot
+    ```
